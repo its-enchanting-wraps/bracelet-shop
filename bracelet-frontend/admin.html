@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin — Enchanted Wraps</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <main style="max-width:700px;margin:30px auto;padding:18px">
+    <h2>Add product</h2>
+    <p>Tip: upload images to your Netlify images folder (or use imgBB) and paste the URL here.</p>
+    <form id="addProductForm">
+      <input name="name" placeholder="Name" required />
+      <input name="price" placeholder="Price (numbers only)" required type="number" />
+      <input name="image" placeholder="Image URL (Netlify or imgBB)" required />
+      <input name="category" placeholder="Category (bracelets, rings...)" />
+      <textarea name="description" placeholder="Description"></textarea>
+      <button class="btn" type="submit">Add product</button>
+    </form>
+
+    <hr style="margin:24px 0">
+
+    <p><a href="index.html" class="btn small">Back to shop</a></p>
+  </main>
+
+  <script>
+    // firebase config: REPLACE with your project's config
+    const firebaseConfig = {
+     apiKey: "AIzaSyAzQyqTfLq4g0BnvahrWOoBs6GVWZZShb8",
+      authDomain: "enchanting-wraps-92c04.firebaseapp.com",
+     projectId: "enchanting-wraps-92c04",
+     storageBucket: "enchanting-wraps-92c04.firebasestorage.app",
+     messagingSenderId: "716023501199",
+     appId: "1:716023501199:web:4ca6d00fd4d1e9eccbfbfa"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const form = document.getElementById('addProductForm');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form));
+      data.price = Number(data.price) || 0;
+      data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      await db.collection('products').add(data);
+      alert('Product added!');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
