@@ -1,4 +1,4 @@
-const API_URL = "https://enchanting-wraps.onrender.com/"; // your Render URL
+const API_URL = "enchanting-wraps.onrender.com"; // your Render URL
 
 async function fetchProducts() {
   const res = await fetch(`${API_URL}/products`);
@@ -21,3 +21,4 @@ contactForm.addEventListener('submit', async (e)=>{
   if(res.ok){ alert('Message sent!'); contactForm.reset(); }
   else alert('Error sending message.');
 });
+
