@@ -83,6 +83,12 @@ app.post("/contact", async (req, res) => {
   }
 });
 
+// 🩷 Root test
+app.get("/", (req, res) => {
+  res.send("✨ Enchanting Wraps Backend is live!");
+});
+
 // --------------------- START SERVER ---------------------
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+
